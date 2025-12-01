@@ -17,5 +17,5 @@ class ScalarConverter {
 
 	public:
 		static void test(const std::string& input);
-		void convert(const std::string& input);
+		static void convert(const std::string& input);
 };

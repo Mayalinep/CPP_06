@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cctype>
 #include <cstddef>
+#include <cstdlib>
 
 ScalarConverter::ScalarConverter(){
 
@@ -54,17 +55,14 @@ bool ScalarConverter::isFloat(const std::string& input){
 		i = 1;
 	if(i >= input.length() || input[input.length() - 1] != 'f')
 		return false;
-	while(input[i] != '.'){
-		if(!input[i]){
-			return false;
-		}
+	while(i < input.length() && input[i] != '.'){
 		if(!std::isdigit(input[i]))
 			return false;
 		i++;
 	}
-	std::cout << input[i] << ": ce caractere est un point ?" << std::endl;
-	if(input[i] == '.')
-		i++;
+	if(i >= input.length() || input[i] != '.')
+		return false;
+	i++;
 	if(i >= input.length() - 1)
 		return false;
 	
@@ -77,8 +75,29 @@ bool ScalarConverter::isFloat(const std::string& input){
 
 }
 bool ScalarConverter::isDouble(const std::string& input){
-	(void)input;
-	return false; // TODO: à implémenter
+	if(input.empty())
+		return false;
+	size_t i = 0;
+	if(input[0] == '-' || input[0] == '+')
+		i = 1;
+	if(i >= input.length())
+		return false;
+	while(i < input.length() && input[i] != '.'){
+		if(!std::isdigit(input[i]))
+			return false;
+		i++;
+	}
+	if(i >= input.length() || input[i] != '.')
+		return false;
+	i++;
+	if(i >= input.length())
+		return false;
+	while(i < input.length()){
+		if(!std::isdigit(input[i]))
+			return false;
+		i++;
+	}
+	return true;
 }
 
 void ScalarConverter::test(const std::string& input){
@@ -91,7 +110,37 @@ void ScalarConverter::test(const std::string& input){
 }
 
 void ScalarConverter::convert(const std::string& input){
-	(void)input;
+	if(isChar(input)){
+		char c = input[1];
+		std::cout << "char: " << c << std::endl;
+		std::cout << "int: " << static_cast<int>(c) << std::endl;
+		std::cout << "float: " << static_cast<float>(c) << std::endl;
+		std::cout << "double: " << static_cast<double>(c) << std::endl;
+	}
+	else if(isInt(input)){
+		int i = atoi(input.c_str());
+		std::cout << "char: " << static_cast<char>(i) << std::endl;
+		std::cout << "int: " << i << std::endl;
+		std::cout << "float: " << static_cast<float>(i) << std::endl;
+		std::cout << "double: " << static_cast<double>(i) << std::endl;
+	}
+	else if(isFloat(input)){
+		float f = static_cast<float>(atof(input.c_str()));
+		std::cout << "char: " << static_cast<char>(f) << std::endl;
+		std::cout << "int: " << static_cast<int>(f) << std::endl;
+		std::cout << "float: " << f << std::endl;
+		std::cout << "double: " << static_cast<double>(f) << std::endl;
+	}
+	else if(isDouble(input)){
+		double d = atof(input.c_str());
+		std::cout << "char: " << static_cast<char>(d) << std::endl;
+		std::cout << "int: " << static_cast<int>(d) << std::endl;
+		std::cout << "float: " << static_cast<float>(d) << std::endl;
+		std::cout << "double: " << d << std::endl;
+	}
+	else{
+		std::cout << "error: no conversion possible" << std::endl;
+	}
 }
 
 
