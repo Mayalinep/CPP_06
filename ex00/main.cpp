@@ -8,10 +8,10 @@ int main(int argc, char** argv){
 	}
 	
 	// Test de vos fonctions bool - pas besoin de créer d'instance !
-	ScalarConverter::test(argv[1]);
-	std::cout << std::endl;
-	std::cout << std::endl;
-	std::cout << std::endl;
+	//ScalarConverter::test(argv[1]);
+	//std::cout << std::endl;
+	//std::cout << std::endl;
+	//std::cout << std::endl;
 	std::cout << "convert: " << std::endl;
 	ScalarConverter::convert(argv[1]);
 	return 0;

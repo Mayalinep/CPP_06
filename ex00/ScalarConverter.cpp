@@ -19,6 +19,18 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& rhs){
 	return *this;
 }
 
+bool ScalarConverter::isOther(const std::string& input){
+	if(input == "nan" || input == "+nan" || input == "-nan")
+		return true;
+	if(input == "inf" || input == "+inf" || input == "-inf")
+		return true;
+	if(input == "nanf" || input == "+nanf" || input == "-nanf")
+		return true;
+	if(input == "inff" || input == "+inff" || input == "-inff")
+		return true;
+	return false;
+}
+
 bool ScalarConverter::isChar(const std::string& input){
 	if(input.length() != 3)
 		return false;
@@ -100,14 +112,14 @@ bool ScalarConverter::isDouble(const std::string& input){
 	return true;
 }
 
-void ScalarConverter::test(const std::string& input){
-	std::cout << "=== Test pour: \"" << input << "\" ===" << std::endl;
-	std::cout << "isChar:   " << (isChar(input) ? "true" : "false") << std::endl;
-	std::cout << "isInt:    " << (isInt(input) ? "true" : "false") << std::endl;
-	std::cout << "isFloat:  " << (isFloat(input) ? "true" : "false") << std::endl;
-	std::cout << "isDouble: " << (isDouble(input) ? "true" : "false") << std::endl;
-	std::cout << std::endl;
-}
+//void ScalarConverter::test(const std::string& input){
+//	std::cout << "=== Test pour: \"" << input << "\" ===" << std::endl;
+//	std::cout << "isChar:   " << (isChar(input) ? "true" : "false") << std::endl;
+//	std::cout << "isInt:    " << (isInt(input) ? "true" : "false") << std::endl;
+//	std::cout << "isFloat:  " << (isFloat(input) ? "true" : "false") << std::endl;
+//	std::cout << "isDouble: " << (isDouble(input) ? "true" : "false") << std::endl;
+//	std::cout << std::endl;
+//}
 
 void ScalarConverter::convert(const std::string& input){
 	if(isChar(input)){
@@ -137,6 +149,15 @@ void ScalarConverter::convert(const std::string& input){
 		std::cout << "int: " << static_cast<int>(d) << std::endl;
 		std::cout << "float: " << static_cast<float>(d) << std::endl;
 		std::cout << "double: " << d << std::endl;
+	}
+	else if(isOther(input)){
+		std::cout << "char: impossible" << std::endl;
+		std::cout << "int: impossible" << std::endl;
+		bool isFloatType = (input == "nanf" || input == "+nanf" || input == "-nanf" ||
+		                    input == "inff" || input == "+inff" || input == "-inff");
+		std::string base = isFloatType ? input.substr(0, input.length() - 1) : input;
+		std::cout << "float: " << base << "f" << std::endl;
+		std::cout << "double: " << base << std::endl;
 	}
 	else{
 		std::cout << "error: no conversion possible" << std::endl;
