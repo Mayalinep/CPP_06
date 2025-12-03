@@ -3,6 +3,7 @@
 #include <cctype>
 #include <cstddef>
 #include <cstdlib>
+#include <climits>
 
 ScalarConverter::ScalarConverter(){
 
@@ -130,25 +131,62 @@ void ScalarConverter::convert(const std::string& input){
 		std::cout << "double: " << static_cast<double>(c) << std::endl;
 	}
 	else if(isInt(input)){
-		int i = atoi(input.c_str());
-		std::cout << "char: " << static_cast<char>(i) << std::endl;
-		std::cout << "int: " << i << std::endl;
-		std::cout << "float: " << static_cast<float>(i) << std::endl;
-		std::cout << "double: " << static_cast<double>(i) << std::endl;
-	}
+		long tmp = atol(input.c_str());
+		if(tmp < INT_MIN || tmp > INT_MAX){
+			std::cout << "char: impossible" << std::endl;
+			std::cout << "int: impossible" << std::endl;
+			std::cout << "float: impossible" << std::endl;
+			std::cout << "double: impossible" << std::endl;
+			return;
+		}
+
+		int i = static_cast<int>(tmp);
+		if(i < 0 || i > 127)
+			std::cout << "char: impossible" << std::endl;
+        else if (!std::isprint(i))
+            std::cout << "char: Non displayable" << std::endl;
+        else
+            std::cout << "char: '" << static_cast<char>(i) << "'" << std::endl;
+        
+        std::cout << "int: " << i << std::endl;
+        std::cout << "float: " << static_cast<float>(i) << "f" << std::endl;
+        std::cout << "double: " << static_cast<double>(i) << std::endl;
+    }
 	else if(isFloat(input)){
 		float f = static_cast<float>(atof(input.c_str()));
-		std::cout << "char: " << static_cast<char>(f) << std::endl;
-		std::cout << "int: " << static_cast<int>(f) << std::endl;
-		std::cout << "float: " << f << std::endl;
-		std::cout << "double: " << static_cast<double>(f) << std::endl;
+        
+        if (f < 0 || f > 127 || f != f)
+            std::cout << "char: impossible" << std::endl;
+        else if (!std::isprint(static_cast<int>(f)))
+            std::cout << "char: Non displayable" << std::endl;
+        else
+            std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
+        
+        if (f < INT_MIN || f > INT_MAX || f != f)
+            std::cout << "int: impossible" << std::endl;
+        else
+            std::cout << "int: " << static_cast<int>(f) << std::endl;
+        
+        std::cout << "float: " << f << "f" << std::endl;
+        std::cout << "double: " << static_cast<double>(f) << std::endl;
 	}
+
 	else if(isDouble(input)){
 		double d = atof(input.c_str());
-		std::cout << "char: " << static_cast<char>(d) << std::endl;
-		std::cout << "int: " << static_cast<int>(d) << std::endl;
-		std::cout << "float: " << static_cast<float>(d) << std::endl;
-		std::cout << "double: " << d << std::endl;
+		if (d < 0 || d > 127 || d != d)
+            std::cout << "char: impossible" << std::endl;
+        else if (!std::isprint(static_cast<int>(d)))
+            std::cout << "char: Non displayable" << std::endl;
+        else
+            std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;
+
+		if (d < INT_MIN || d > INT_MAX || d != d)
+            std::cout << "int: impossible" << std::endl;
+        else
+            std::cout << "int: " << static_cast<int>(d) << std::endl;
+        
+        std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
+        std::cout << "double: " << d << std::endl;
 	}
 	else if(isOther(input)){
 		std::cout << "char: impossible" << std::endl;
