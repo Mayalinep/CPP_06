@@ -1,8 +1,9 @@
 #include "ScalarConverter.hpp"
 #include <iostream>
-#include <cctype>
 #include <cstddef>
 #include <cstdlib>
+#include <iomanip>
+#include <sstream>
 #include <climits>
 
 ScalarConverter::ScalarConverter(){
@@ -113,6 +114,26 @@ bool ScalarConverter::isDouble(const std::string& input){
 	return true;
 }
 
+void ScalarConverter::printFloat(float f) {
+    std::cout << "float: ";
+    if (f == static_cast<int>(f) && f >= -1000000 && f <= 1000000) {
+        std::cout << static_cast<int>(f) << ".0f";
+    } else {
+        std::cout << f << "f";
+    }
+    std::cout << std::endl;
+}
+
+void ScalarConverter::printDouble(double d) {
+    std::cout << "double: ";
+    if (d == static_cast<int>(d) && d >= -1000000 && d <= 1000000) {
+        std::cout << static_cast<int>(d) << ".0";
+    } else {
+        std::cout << d;
+    }
+    std::cout << std::endl;
+}
+
 //void ScalarConverter::test(const std::string& input){
 //	std::cout << "=== Test pour: \"" << input << "\" ===" << std::endl;
 //	std::cout << "isChar:   " << (isChar(input) ? "true" : "false") << std::endl;
@@ -162,7 +183,7 @@ void ScalarConverter::convert(const std::string& input){
         else
             std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
         
-        if (f < INT_MIN || f > INT_MAX || f != f)
+        if (f < static_cast<float>(INT_MIN) || f > static_cast<float>(INT_MAX) || f != f)
             std::cout << "int: impossible" << std::endl;
         else
             std::cout << "int: " << static_cast<int>(f) << std::endl;
@@ -180,7 +201,7 @@ void ScalarConverter::convert(const std::string& input){
         else
             std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;
 
-		if (d < INT_MIN || d > INT_MAX || d != d)
+		if (d < static_cast<double>(INT_MIN) || d > static_cast<double>(INT_MAX) || d != d)
             std::cout << "int: impossible" << std::endl;
         else
             std::cout << "int: " << static_cast<int>(d) << std::endl;

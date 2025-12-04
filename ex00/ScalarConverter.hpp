@@ -10,6 +10,8 @@ class ScalarConverter {
 		static bool isFloat(const std::string& input);
 		static bool isDouble(const std::string& input);
 		static bool isOther(const std::string& input);
+		static void printFloat(float f);
+		static void printDouble(double d);
 		ScalarConverter();
 		ScalarConverter(const ScalarConverter& rhs);
 		ScalarConverter& operator=(const ScalarConverter& rhs);
