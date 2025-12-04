@@ -148,8 +148,8 @@ void ScalarConverter::convert(const std::string& input){
 		char c = input[1];
 		std::cout << "char: " << c << std::endl;
 		std::cout << "int: " << static_cast<int>(c) << std::endl;
-		std::cout << "float: " << static_cast<float>(c) << std::endl;
-		std::cout << "double: " << static_cast<double>(c) << std::endl;
+		printFloat(static_cast<float>(c));
+		printDouble(static_cast<double>(c));
 	}
 	else if(isInt(input)){
 		long tmp = atol(input.c_str());
@@ -170,8 +170,8 @@ void ScalarConverter::convert(const std::string& input){
             std::cout << "char: '" << static_cast<char>(i) << "'" << std::endl;
         
         std::cout << "int: " << i << std::endl;
-        std::cout << "float: " << static_cast<float>(i) << "f" << std::endl;
-        std::cout << "double: " << static_cast<double>(i) << std::endl;
+        printFloat(static_cast<float>(i));
+        printDouble(static_cast<double>(i));
     }
 	else if(isFloat(input)){
 		float f = static_cast<float>(atof(input.c_str()));
@@ -188,8 +188,8 @@ void ScalarConverter::convert(const std::string& input){
         else
             std::cout << "int: " << static_cast<int>(f) << std::endl;
         
-        std::cout << "float: " << f << "f" << std::endl;
-        std::cout << "double: " << static_cast<double>(f) << std::endl;
+        printFloat(f);
+		printDouble(static_cast<double>(f));
 	}
 
 	else if(isDouble(input)){
@@ -206,8 +206,8 @@ void ScalarConverter::convert(const std::string& input){
         else
             std::cout << "int: " << static_cast<int>(d) << std::endl;
         
-        std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
-        std::cout << "double: " << d << std::endl;
+        printFloat(static_cast<float>(d));
+		printDouble(d);
 	}
 	else if(isOther(input)){
 		std::cout << "char: impossible" << std::endl;

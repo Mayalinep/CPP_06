@@ -11,8 +11,8 @@ int main(int argc, char** argv){
 	//ScalarConverter::test(argv[1]);
 	//std::cout << std::endl;
 	//std::cout << std::endl;
-	//std::cout << std::endl;
-	std::cout << "convert: " << std::endl;
+	std::cout << std::endl;
+	std::cout << "convert the string: " << argv[1] << std::endl;
 	ScalarConverter::convert(argv[1]);
 	return 0;
 }
